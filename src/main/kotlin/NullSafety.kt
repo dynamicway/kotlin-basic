@@ -1,5 +1,3 @@
-package nullsafety
-
 class NullSafety {
 
     fun smartCast(name: String?): String {
