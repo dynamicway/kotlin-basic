@@ -1,4 +1,5 @@
 package nullsafety
 
 class NullSafety {
+
 }
