@@ -1,4 +1,4 @@
 build/
 .idea/
 .gradle/
-src/kotlin-basic/.gradle/
+Src/kotlin-basic/.gradle/
