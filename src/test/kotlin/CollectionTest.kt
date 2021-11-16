@@ -1,5 +1,4 @@
 import io.kotest.core.spec.style.BehaviorSpec
-import io.kotest.core.spec.style.behaviorSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 
@@ -24,11 +23,38 @@ class CollectionTest : BehaviorSpec({
     }
 
     Given("키 리스트가 주어졌을 때") {
-        val keys = 'a' .. 'f'
+        val keys = 'a'..'f'
         When("associateWith 함수를 사용하여 map 생성") {
             val actualAssociate = keys.associateWith { it.toString().repeat(5) }
             Then("키가 5개씩 들어있는 맵이 생성됨") {
-                actualAssociate shouldBe mapOf('a' to "aaaaa", 'b' to "bbbbb", 'c' to "ccccc", 'd' to "ddddd", 'e' to "eeeee", 'f' to "fffff")
+                actualAssociate shouldBe mapOf(
+                    'a' to "aaaaa",
+                    'b' to "bbbbb",
+                    'c' to "ccccc",
+                    'd' to "ddddd",
+                    'e' to "eeeee",
+                    'f' to "fffff"
+                )
+            }
+        }
+    }
+
+    Given("비어있는 컬렉션이 주어졌을 때") {
+        val givenEmptyList = listOf<String>()
+        When("joinToString 을 수행하기 전 ifEmpty 를 사용하여 리스트 초기화") {
+            val joinToStringAfterIfEmpty = givenEmptyList
+                .ifEmpty { listOf("init", "list") }
+                .joinToString (separator = ", ")
+            Then("결과는 init, list") {
+                joinToStringAfterIfEmpty shouldBe "init, list"
+            }
+        }
+        When("joinToString 을 수행한 뒤 ifEmpty 르 사용하여 리스트 초기화") {
+            val joinToStringBeforeIfEmpty = givenEmptyList
+                .joinToString (", ")
+                .ifEmpty { "init list" }
+            Then("결과는 init, list") {
+                joinToStringBeforeIfEmpty shouldBe "init list"
             }
         }
     }
