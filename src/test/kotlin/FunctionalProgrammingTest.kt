@@ -9,4 +9,11 @@ class FunctionalProgrammingTest {
         assertThat(foldResult).isEqualTo(55)
     }
 
+    @Test
+    fun fold_factorial() {
+        val foldResult = (1..5).fold(1) { acc, i -> acc * i}
+        assertThat(foldResult).isEqualTo(120)
+    }
+
+
 }
