@@ -111,6 +111,39 @@ class CollectionTest : BehaviorSpec({
                 actualSumOfChunkedBy3 shouldBe listOf(3, 12, 21, 19)
             }
         }
-
+        When("windowed 함수를 통해 길이가 3인 window 로 한개씩 이동하며 리스트를 나눈다") {
+            val actualWindowedBy3SizeAnd1Steps = givenRange.windowed(3, 1, true)
+            Then("결과") {
+                actualWindowedBy3SizeAnd1Steps shouldContainExactly listOf(
+                    listOf(0, 1, 2),
+                    listOf(1, 2, 3),
+                    listOf(2, 3, 4),
+                    listOf(3, 4, 5),
+                    listOf(4, 5, 6),
+                    listOf(5, 6, 7),
+                    listOf(6, 7, 8),
+                    listOf(7, 8, 9),
+                    listOf(8, 9, 10),
+                    listOf(9, 10),
+                    listOf(10)
+                )
+            }
+        }
+        When("windowed 함수를 통해 길이가 3인 window 로 한개씩 이동하며 리스트를 나누되 길이가 3이 되지 않으면 멈춘다") {
+            val actualWindowedBy3SizeAnd1Steps = givenRange.windowed(3, 1)
+            Then("결과") {
+                actualWindowedBy3SizeAnd1Steps shouldContainExactly listOf(
+                    listOf(0, 1, 2),
+                    listOf(1, 2, 3),
+                    listOf(2, 3, 4),
+                    listOf(3, 4, 5),
+                    listOf(4, 5, 6),
+                    listOf(5, 6, 7),
+                    listOf(6, 7, 8),
+                    listOf(7, 8, 9),
+                    listOf(8, 9, 10)
+                )
+            }
+        }
     }
 })
