@@ -58,4 +58,26 @@ class CollectionTest : BehaviorSpec({
             }
         }
     }
+
+    Given("1 .. 10 의 범위가 주어졌을 때") {
+        val givenRange = 1..10
+        When("5 를 coerceIn 으로 호출") {
+            val coerceInBy5 = 5.coerceIn(givenRange)
+            Then("반환 값은 5") {
+                coerceInBy5 shouldBe 5
+            }
+        }
+        When("-1 을 coerceIn 으로 호출") {
+            val coerceInByMinus1 = (-1).coerceIn(givenRange)
+            Then("반환 값은 1") {
+                coerceInByMinus1 shouldBe 1
+            }
+        }
+        When("100 을 coerceIn 으로 호출") {
+            val coerceInBy100 = 100.coerceIn(givenRange)
+            Then("반환 값은 10") {
+                coerceInBy100 shouldBe 10
+            }
+        }
+    }
 })
