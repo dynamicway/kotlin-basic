@@ -1,12 +1,7 @@
-import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.assertions.throwables.shouldThrowAny
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.spec.style.ShouldSpec
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldHave
-import io.kotest.matchers.string.shouldStartWith
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -48,7 +43,8 @@ class FunctionalProgrammingTest {
 
 class FunctionalProgrammingKoTest : ShouldSpec({
     context("recursive") {
-        should("factorial throws Exception") {
+
+        should("factorial throws StackOverFlowError") {
             fun givenRecursiveFactorialFunction(n: Long): BigInteger =
                 when (n) {
                     0L, 1L -> BigInteger.ONE
@@ -56,6 +52,20 @@ class FunctionalProgrammingKoTest : ShouldSpec({
                 }
 
             shouldThrowExactly<StackOverflowError> { givenRecursiveFactorialFunction(100000) }
+        }
+
+        should("tailrec recursive factorial function not throws StackOverFlowError") {
+            tailrec fun givenTailrecRecursiveFactorialFunction(
+                n: Long,
+                acc: BigInteger = BigInteger.ONE
+            ): BigInteger =
+                when (n) {
+                    0L -> BigInteger.ONE
+                    1L -> acc
+                    else -> givenTailrecRecursiveFactorialFunction(n - 1, acc * BigInteger.valueOf(n))
+                }
+
+            shouldNotThrowAny { givenTailrecRecursiveFactorialFunction(75000) }
         }
     }
 })
