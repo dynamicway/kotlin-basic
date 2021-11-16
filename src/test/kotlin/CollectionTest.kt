@@ -91,4 +91,26 @@ class CollectionTest : BehaviorSpec({
             }
         }
     }
+
+    Given("0 .. 10의 범위가 주어졌을 때") {
+        val givenRange = 0 .. 10
+        When("chunked 함수를 통해 길이가 3인 리스트로 나눈다") {
+            val actualChunkedBy3 = givenRange.chunked(3)
+            Then("결과는 012, 345, 678, 910") {
+                actualChunkedBy3 shouldContainExactly listOf(
+                    listOf(0, 1, 2),
+                    listOf(3, 4, 5),
+                    listOf(6, 7, 8),
+                    listOf(9, 10)
+                )
+            }
+        }
+        When("chunked 함수를 통해 길이가 3인 리스트로 나누고 나눈 부분들의 합을 구했을 때") {
+            val actualSumOfChunkedBy3 = givenRange.chunked(3) { it.sum() }
+            Then("결과는 3, 12, 21, 19") {
+                actualSumOfChunkedBy3 shouldBe listOf(3, 12, 21, 19)
+            }
+        }
+
+    }
 })
