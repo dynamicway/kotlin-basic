@@ -1,4 +1,37 @@
+HELP.md
+.gradle
 build/
-.idea/
-.gradle/
-Src/kotlin-basic/.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!components/components-hello/src/main/**/build/
+!components/components-hello/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!components/components-hello/src/main/**/bin/
+!components/components-hello/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!components/components-hello/src/main/**/out/
+!components/components-hello/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
