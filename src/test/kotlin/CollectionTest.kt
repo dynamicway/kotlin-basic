@@ -80,4 +80,15 @@ class CollectionTest : BehaviorSpec({
             }
         }
     }
+
+    Given("최솟값, 최댓값만 주어졌을 때") {
+        val givenMin = 0
+        val givenMax = 10
+        When("range 를 사용하지 않고 coerce 함수를 실행") {
+            val actualCoerceInBy100 = 100.coerceIn(givenMin, givenMax)
+            Then("결과는 10") {
+                actualCoerceInBy100 shouldBe 10
+            }
+        }
+    }
 })
