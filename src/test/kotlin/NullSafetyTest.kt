@@ -51,7 +51,7 @@ internal class NullSafetyTest {
         val defaultName = presley.name ?: "default"
 
         // then
-        assertAll (
+        assertAll(
             Executable { assertEquals(notNullName, elvis.name) },
             Executable { assertEquals(defaultName, "default") }
         )
