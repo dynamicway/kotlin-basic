@@ -146,4 +146,31 @@ class CollectionTest : BehaviorSpec({
             }
         }
     }
+
+    Given("Person 객체 리스트가 주어졌을 때") {
+        data class Person(val age: Int, val name: String)
+
+        val givenPeople = listOf(
+            Person(10, "aaa"),
+            Person(45, "bbb"),
+            Person(10, "ccc"),
+            Person(30, "ddd"),
+            Person(20, "eee")
+        )
+
+        When("나이, 이름 순서로 정렬") {
+            val actualSortedPeople = givenPeople.sortedWith(
+                compareBy({ it.age }, { it.name })
+            )
+            Then("정렬 결과 확인") {
+                actualSortedPeople shouldContainExactly listOf(
+                    Person(10, "aaa"),
+                    Person(10, "ccc"),
+                    Person(20, "eee"),
+                    Person(30, "ddd"),
+                    Person(45, "bbb")
+                )
+            }
+        }
+    }
 })
