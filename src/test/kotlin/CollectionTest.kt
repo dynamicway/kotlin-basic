@@ -172,5 +172,18 @@ class CollectionTest : BehaviorSpec({
                 )
             }
         }
+        When("나이, 이름 순서로 theyBy 함수를 통해 정렬") {
+            val actualSortedPeople = givenPeople.sortedWith(compareBy(Person::age)
+                .thenBy { it.name })
+            Then("정렬 결과 확인") {
+                actualSortedPeople shouldContainExactly listOf(
+                    Person(10, "aaa"),
+                    Person(10, "ccc"),
+                    Person(20, "eee"),
+                    Person(30, "ddd"),
+                    Person(45, "bbb")
+                )
+            }
+        }
     }
 })
