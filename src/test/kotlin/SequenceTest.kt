@@ -1,5 +1,7 @@
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
+import kotlin.math.ceil
+import kotlin.math.sqrt
 
 class SequenceTest: BehaviorSpec({
     Given("1부터 200만 까지의 sequence 가 주어졌을 때") {
@@ -26,4 +28,28 @@ class SequenceTest: BehaviorSpec({
             }
         }
     }
+
+    Given("n + 1부터 시작해서 1씩 증가하는 무한 Sequence 와 소수인지 판단하는 Int 의 확잠함수가 주어졌을 때") {
+        fun Int.isPrime() = this == 2 || (2..ceil(sqrt(this.toDouble())).toInt())
+            .none { divisor -> this % divisor == 0 }
+
+        fun givenNextPrimeFunction(n: Int) = generateSequence(n + 1) { it + 1 }
+            .first { it.isPrime() }
+
+        When("3의 다음 소수를 찾는다") {
+            val actualGivenNextPrimeBy3Result = givenNextPrimeFunction(3)
+            Then("결과는 5") {
+                actualGivenNextPrimeBy3Result shouldBe 5
+            }
+        }
+
+        When("5의 다음 소수를 찾는다") {
+            val actualGivenNextPrimeBy5Result = givenNextPrimeFunction(5)
+            Then("결과는 7") {
+                actualGivenNextPrimeBy5Result shouldBe 7
+            }
+        }
+
+    }
+
 })
