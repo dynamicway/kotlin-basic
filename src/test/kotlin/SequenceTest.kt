@@ -9,8 +9,20 @@ class SequenceTest: BehaviorSpec({
                 .map { it * 2 }
                 .filter { it % 3 == 0 }
                 .first()
-            Then("결과는 200") {
+            Then("결과는 204") {
                 actualFirstValue shouldBe 204
+            }
+        }
+        When("2를 곱한 뒤 3으로 나누어 떨어지는 수를 필터링 하는데 필터링을 거친 수들은 리스트에 담는다") {
+            val givenList = mutableListOf<Int>()
+
+            givenSequence
+                .map { it * 2 }
+                .filter { givenList.add(it); it % 3 == 0 }
+                .first()
+
+            Then("리스트의 사이즈는 3") {
+                givenList.size shouldBe 3
             }
         }
     }
